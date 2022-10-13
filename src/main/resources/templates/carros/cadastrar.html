@@ -1,0 +1,73 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Cadastrar Carro</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="panel-default">
+
+            <div class="text-center">
+                <h1 class="h4 text-grey-900 mb-4">Cadastrar Carro</h1>
+            </div>
+            <div class="panel-body">
+
+                <form th:object="${carro}" class="form-horizontal" th:action="@{/carros/salvar}" method="POST" style="margin: 10px">
+                    <div class="form-group">
+                        <fieldset>
+                            <div class="form-group row">
+                                <label for="modeloInput">Modelo</label>
+                                <input id="modeloInput" type="text" class="form-control input-sm" th:field="*{modelo}" autofocus="autofocus" placeholder="Informe o modelo" maxlength="50" name="" />
+                            </div>
+                          	<div class="form-group row">
+								<label>Fabricante</label>
+								<select class="form-control" th:field="*{fabricante}">
+									<option value="">Selecione um Fabricante</option>
+									<option th:each="fab : ${fabricantes}" th:value="${fab.id}" th:text="${fab.nome}"></option>
+								</select>
+							</div>
+ 							<div class="form-group row">
+								<label>Documento</label>
+								<select class="form-control" th:field="*{documento}">
+									<option value="">Selecione um Documento</option>
+									<option th:each="doc : ${documentos}" th:value="${doc.id}" th:text="${doc.numero}"></option>
+								</select>
+							</div>
+								<div class="form-group row">
+								<label>Chave</label>
+								<select class="form-control" th:field="*{chave}">
+									<option value="">Selecione uma chave</option>
+									<option th:each="chave : ${chaves}" th:value="${chave.id}" th:text="${chave.codigo}"></option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Acessórios</label>
+								<div th:each="ace : ${acessorios}"><!--Referente ao que coloquei no controller-->
+									<input type="checkbox" th:field="*{acessorios}" th:value="${ace.id}"/><!--Referenete ao nome do atributo na classe carros-->
+									<label th:text="${ace.nome}"></label>
+								</div>
+							</div>
+						</fieldset>
+                    </div>
+                    <div align="center">
+                        <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+                        <a  href="/carros/listar" class="btn btn-sm btn-default">Cancelar</a>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
